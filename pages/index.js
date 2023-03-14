@@ -44,12 +44,15 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         {movies ? (
-          movies.map((movie) => {
+          movies.map((movie, index) => {
             return (
-              <>
-                <h3 key={movie._id}>{movie.title}</h3>
-                <p key={`${movie._id}pp`}>{movie.plot}</p>
-              </>
+              
+              <li key={movie._id.toString()}>
+                {movie.title}
+                <br/>
+                {movie.plot}
+              </li>
+              
             );
           })
         ) : (
