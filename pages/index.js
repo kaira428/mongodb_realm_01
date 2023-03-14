@@ -7,8 +7,8 @@ export default function Home() {
   const [movies, setMovies] = useState([]);
 
   useEffect(
-    () =>
-      async function getMovieData() {
+    () => {
+      (async function getMovieData() {
         const REALM_APP_ID = "movies-vyvch";
         const app = new Realm.App({ id: REALM_APP_ID });
         const credentials = Realm.Credentials.anonymous();
@@ -29,7 +29,8 @@ export default function Home() {
 
         // const allMovies = await collection?.find();
         // console.log(allMovies);
-      },
+  })();
+},
     []
   );
 
@@ -43,7 +44,14 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         {movies ? (
-          movies.map((movie) => <p key={movie._id}>{movie.title}</p>)
+          movies.map((movie) => {
+            return (
+              <>
+                <h3 key={movie._id}>{movie.title}</h3>
+                <p key={`${movie._id}pp`}>{movie.plot}</p>
+              </>
+            );
+          })
         ) : (
           <p>No Movie Found</p>
         )}
