@@ -8,7 +8,7 @@ export default function Home() {
 
   useEffect(
     () => {
-      (async () => {
+      async function getMovieData() {
         const REALM_APP_ID = "movies-vyvch";
         const app = new Realm.App({ id: REALM_APP_ID });
         const credentials = Realm.Credentials.anonymous();
@@ -29,10 +29,10 @@ export default function Home() {
 
         // const allMovies = await collection?.find();
         // console.log(allMovies);
-  })();
-},
-    []
-  );
+  }
+
+  getMovieData();
+},[]);
 
   return (
     <>
