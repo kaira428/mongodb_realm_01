@@ -2,37 +2,37 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 import * as Realm from "realm-web";
+import MovieList from "../components/MovieList";
 
 export default function Home() {
   const [movies, setMovies] = useState([]);
 
-  useEffect(
-    () => {
-      async function getMovieData() {
-        const REALM_APP_ID = process.env.NEXT_PUBLIC_REALM_APP_ID;
-        const app = new Realm.App({ id: REALM_APP_ID });
-        const credentials = Realm.Credentials.anonymous();
+  useEffect(() => {
+    async function getMovieData() {
+      const REALM_APP_ID = process.env.NEXT_PUBLIC_REALM_APP_ID;
+      const app = new Realm.App({ id: REALM_APP_ID });
+      const credentials = Realm.Credentials.anonymous();
 
-        try {
-          const user = await app.logIn(credentials);
-          const allMovies = await user.functions.getAllMovies();
+      try {
+        const user = await app.logIn(credentials);
+        const allMovies = await user.functions.getAllMovies();
 
-          setMovies(allMovies);
+        setMovies(allMovies);
 
-          console.log(allMovies);
-        } catch (error) {
-          console.error(error);
-        }
+        console.log(allMovies);
+      } catch (error) {
+        console.error(error);
+      }
 
-        // const mongo = app.currentUser?.mongoClient('WK-Free-Cluster');
-        // const collection = mongo?.db('sample_mflix').collection('movies');
+      // const mongo = app.currentUser?.mongoClient('WK-Free-Cluster');
+      // const collection = mongo?.db('sample_mflix').collection('movies');
 
-        // const allMovies = await collection?.find();
-        // console.log(allMovies);
-  }
+      // const allMovies = await collection?.find();
+      // console.log(allMovies);
+    }
 
-  getMovieData();
-},[]);
+    getMovieData();
+  }, []);
 
   return (
     <>
@@ -43,21 +43,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        {movies ? (
-          movies.map((movie, index) => {
-            return (
-              
-              <li key={movie._id.toString()}>
-                {movie.title}
-                <br/>
-                {movie.plot}
-              </li>
-              
-            );
-          })
-        ) : (
-          <p>No Movie Found</p>
-        )}
+        <MovieList movies={movies}/>
       </main>
     </>
   );
