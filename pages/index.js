@@ -9,7 +9,7 @@ export default function Home() {
   useEffect(
     () => {
       async function getMovieData() {
-        const REALM_APP_ID = "movies-vyvch";
+        const REALM_APP_ID = process.env.NEXT_PUBLIC_REALM_APP_ID;
         const app = new Realm.App({ id: REALM_APP_ID });
         const credentials = Realm.Credentials.anonymous();
 
