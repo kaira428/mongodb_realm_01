@@ -7,7 +7,10 @@ const Movie = (props) => {
             {props.title}
         </h3>
         <br />
-        <p>{props.plot}</p>
+        {props.plot && <p style={{color: 'cyan'}}>{props.plot}</p>}
+        {!props.plot && <p style={{color: 'red'}}>No Plot Found</p>}
+       <br />
+       <br />
     </div>
   )
 }
